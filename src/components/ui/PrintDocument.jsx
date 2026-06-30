@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { formatCurrency, formatDate } from '../../utils/helpers';
 import { recapUsageData, recapResignData } from '../../data/dummyData';
+import { useSettingsStore } from '../../store/useSettingsStore';
 
 export default function PrintDocument({ type, invoiceData }) {
+  const { branding } = useSettingsStore();
   const [logo, setLogo] = useState(null);
 
   const handleLogoUpload = (e) => {
@@ -21,7 +23,7 @@ export default function PrintDocument({ type, invoiceData }) {
           <img src={logo} alt="Company Logo" className="h-16 object-contain" />
         ) : (
           <div className="group relative h-16 w-48 flex items-center print:justify-start">
-            <img src="/v-com.png" alt="V-COM Logo" className="h-full object-contain" />
+            <img src={branding.logo} alt="Logo" className="h-full object-contain" />
             <div className="absolute inset-0 bg-white/80 opacity-0 group-hover:opacity-100 flex items-center justify-center transition cursor-pointer print:hidden">
               <label className="cursor-pointer text-xs text-blue-600 font-bold">
                 Ubah Logo
@@ -32,8 +34,8 @@ export default function PrintDocument({ type, invoiceData }) {
         )}
       </div>
       <div className="flex-1 text-center">
-        <h1 className="text-2xl font-bold text-slate-800 tracking-wider">V-COM</h1>
-        <p className="text-[11px] font-semibold text-slate-600 mt-1">JUAL BELI, TUKAR TAMBAH, SEWA COMPUTER SEGALA KONDISI</p>
+        <h1 className="text-2xl font-bold text-slate-800 tracking-wider uppercase dark:text-slate-100">{branding.companyName}</h1>
+        <p className="text-[11px] font-semibold text-slate-600 mt-1 dark:text-slate-300">JUAL BELI, TUKAR TAMBAH, SEWA COMPUTER SEGALA KONDISI</p>
       </div>
       <div className="flex-1" />
     </div>
@@ -121,7 +123,7 @@ export default function PrintDocument({ type, invoiceData }) {
         <p className="font-bold">V Com (Via Computer)</p>
         <div className="h-24 mt-2 relative w-48">
           <div className="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
-            <span className="text-4xl font-black text-blue-500 transform -rotate-12">V-COM</span>
+            <span className="text-4xl font-black text-blue-500 transform -rotate-12">V-com Website</span>
           </div>
           <div className="border-b border-black absolute bottom-4 w-full"></div>
         </div>
@@ -194,7 +196,7 @@ export default function PrintDocument({ type, invoiceData }) {
             <span className="text-[8px] text-rose-500 font-bold tracking-widest -rotate-90">MATERAI</span>
           </div>
           <div className="absolute inset-0 flex items-center justify-center opacity-30 pointer-events-none z-10">
-            <span className="text-4xl font-black text-blue-500 transform -rotate-12">V-COM</span>
+            <span className="text-4xl font-black text-blue-500 transform -rotate-12">V-com Website</span>
           </div>
           <div className="border-b border-black absolute bottom-4 w-full z-20"></div>
         </div>
@@ -208,14 +210,14 @@ export default function PrintDocument({ type, invoiceData }) {
     <div className="print-page text-[12px] text-black">
       <div className="flex justify-end mb-4">
         <div className="text-right">
-          <h1 className="text-xl font-black text-slate-800 flex items-center gap-2 justify-end">
+          <h1 className="text-xl font-black text-slate-800 flex items-center gap-2 justify-end dark:text-slate-100">
             <span className="w-8 h-8 flex flex-wrap gap-0.5">
               <span className="w-3.5 h-3.5 bg-green-500"></span><span className="w-3.5 h-3.5 bg-blue-500"></span>
               <span className="w-3.5 h-3.5 bg-yellow-500"></span><span className="w-3.5 h-3.5 bg-black"></span>
             </span>
             PERSADA
           </h1>
-          <p className="text-[10px] text-slate-500 mt-1">Helping Your Business Grow</p>
+          <p className="text-[10px] text-slate-500 mt-1 dark:text-slate-400">Helping Your Business Grow</p>
         </div>
       </div>
       
@@ -228,13 +230,13 @@ export default function PrintDocument({ type, invoiceData }) {
               <span className="inline-block w-20">Tanggal :</span> {formatDate(new Date().toISOString())}
             </td>
             <td className="border border-slate-800 p-2 w-1/2">
-              <span className="inline-block w-20">Nomor :</span> PO-{new Date().getFullYear()}-{(Math.random()*10000).toFixed(0).padStart(4,'0')}
+              <span className="inline-block w-20">Nomor :</span> PO-{new Date().getFullYear()}-{(new Date().getTime() % 10000).toFixed(0).padStart(4,'0')}
             </td>
           </tr>
           <tr>
             <td className="border border-slate-800 p-2 align-top h-32">
               <p className="font-bold mb-2">SELLER CONTRACTOR :</p>
-              <p className="font-bold">V-COM</p>
+              <p className="font-bold">V-com Website</p>
               <p>Jalan Impres XI Rt 005/008 Larangan Tangerang</p>
               <p>021.7320118</p>
               <p>telp:</p>
@@ -291,9 +293,9 @@ export default function PrintDocument({ type, invoiceData }) {
 
       <div className="flex justify-between items-end mt-16 px-10">
         <div className="text-center w-48 relative">
-          <p className="font-bold mb-16">V-COM</p>
-          <div className="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none top-8">
-            <span className="text-3xl font-black text-blue-500 transform -rotate-12">V-COM</span>
+          <p className="font-bold mb-16">V-com Website</p>
+          <div className="flex items-center gap-2">
+            <span className="text-3xl font-black text-blue-500 transform -rotate-12">V-com Website</span>
           </div>
           <div className="border-b border-black w-full mb-1"></div>
           <p>( <span className="font-bold">ILAVIA FUJIYANTI</span> )</p>
@@ -310,7 +312,7 @@ export default function PrintDocument({ type, invoiceData }) {
         </div>
       </div>
       
-      <div className="mt-12 text-[9px] text-slate-500">
+      <div className="mt-12 text-[9px] text-slate-500 dark:text-slate-400">
         <p>Lembar ke 1 Putih (asli)</p>
         <p>Lembar ke 2 Biru (asli)</p>
         <p>Lembar ke 3 Hijau (copy 1)</p>
@@ -342,7 +344,7 @@ export default function PrintDocument({ type, invoiceData }) {
         </thead>
         <tbody>
           {recapUsageData.map((row) => (
-            <tr key={row.no} className="hover:bg-slate-50">
+            <tr key={row.no} className="hover:bg-slate-50 dark:hover:bg-slate-950">
               <td className="border border-slate-400 p-1 text-center">{row.no}</td>
               <td className="border border-slate-400 p-1">{row.nama}</td>
               <td className="border border-slate-400 p-1 text-center">{row.endContract}</td>
@@ -368,7 +370,7 @@ export default function PrintDocument({ type, invoiceData }) {
       <h2 className="font-bold text-xl mb-4 text-red-600">Rekap data resign Bulan {new Date().toLocaleString('id-ID', { month: 'long', year: 'numeric' })}</h2>
       <table className="w-3/4 border-collapse border border-slate-400">
         <thead>
-          <tr className="bg-orange-500 text-white font-bold">
+          <tr className="bg-orange-500 text-white font-bold dark:text-slate-900">
             <th className="border border-slate-400 p-2 w-12 text-center">No ▾</th>
             <th className="border border-slate-400 p-2 text-center">Nama ▾</th>
             <th className="border border-slate-400 p-2 w-32 text-center">Serialnumber ▾</th>
@@ -378,11 +380,11 @@ export default function PrintDocument({ type, invoiceData }) {
         </thead>
         <tbody>
           {recapResignData.map((row) => (
-            <tr key={row.no} className="hover:bg-slate-50">
+            <tr key={row.no} className="hover:bg-slate-50 dark:hover:bg-slate-950">
               <td className="border border-slate-400 p-2 text-center">{row.no}</td>
               <td className="border border-slate-400 p-2 font-medium">{row.nama}</td>
               <td className="border border-slate-400 p-2">{row.serial}</td>
-              <td className="border border-slate-400 p-2 text-slate-500">{row.specs}</td>
+              <td className="border border-slate-400 p-2 text-slate-500 dark:text-slate-400">{row.specs}</td>
               <td className={`border border-slate-400 p-2 font-medium ${row.keterangan === 'Resign' ? 'text-red-500' : 'text-blue-500'}`}>
                 {row.keterangan}
               </td>

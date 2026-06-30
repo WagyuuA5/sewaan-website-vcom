@@ -8,6 +8,14 @@
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+@custom-variant dark (&:is(.dark *));
+
+/* Global animation toggle */
+.disable-animations * {
+  transition: none !important;
+  animation: none !important;
+}
+
 /* Custom scrollbar */
 * {
   scrollbar-width: thin;
@@ -39,6 +47,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #f8fafc;
+}
+
+.dark body {
+  background-color: #020617; /* slate-950 */
+  color: #f8fafc;
 }
 
 #root {

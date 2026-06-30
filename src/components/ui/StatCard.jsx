@@ -15,7 +15,7 @@ export default function StatCard({ stat, index }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.08, duration: 0.4 }}
-      className="bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-slate-100 card-hover"
+      className="bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-slate-100 card-hover dark:bg-slate-900 dark:border-slate-800"
     >
       <div className="flex items-start justify-between mb-4">
         <div className={`p-3 rounded-xl bg-gradient-to-br ${stat.color} shadow-lg`}>
@@ -32,8 +32,8 @@ export default function StatCard({ stat, index }) {
           {stat.change}
         </div>
       </div>
-      <div className="text-2xl font-bold text-slate-900 mb-1">{stat.value}</div>
-      <div className="text-sm text-slate-500">{stat.title}</div>
+      <div className="text-2xl font-bold text-slate-900 mb-1 dark:text-white">{stat.value}</div>
+      <div className="text-sm text-slate-500 dark:text-slate-400">{stat.title}</div>
     </motion.div>
   );
 }

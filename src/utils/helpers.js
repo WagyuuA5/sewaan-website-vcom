@@ -95,3 +95,49 @@ export const getInitials = (name) => {
  * Clamp a number between min and max.
  */
 export const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+/**
+ * Utility to export an array of objects to a CSV file and trigger download
+ * 
+ * @param {Array} data - Array of objects to export
+ * @param {string} filename - Desired filename without extension
+ */
+export const exportToCSV = (data, filename) => {
+  if (!data || !data.length) return;
+
+  // Extract headers
+  const headers = Object.keys(data[0]);
+  
+  // Convert objects to CSV string
+  const csvContent = [
+    headers.join(','), // Header row
+    ...data.map(row => 
+      headers.map(header => {
+        let cell = row[header] === null || row[header] === undefined ? '' : row[header];
+        // Handle strings that contain commas, quotes or newlines
+        if (typeof cell === 'string' && (cell.includes(',') || cell.includes('"') || cell.includes('\n'))) {
+          cell = `"${cell.replace(/"/g, '""')}"`;
+        }
+        return cell;
+      }).join(',')
+    )
+  ].join('\n');
+
+  // Create Blob and trigger download
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+  
+  if (navigator.msSaveBlob) {
+    // IE 10+
+    navigator.msSaveBlob(blob, `${filename}.csv`);
+  } else {
+    // Other browsers
+    const url = URL.createObjectURL(blob);
+    link.href = url;
+    link.setAttribute('download', `${filename}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }
+};

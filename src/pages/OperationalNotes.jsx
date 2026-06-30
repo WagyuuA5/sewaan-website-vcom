@@ -1,8 +1,10 @@
 import { useState, useMemo } from 'react';
+import { ShinyButton } from '../components/ui/shiny-button';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Search, FileText, Edit3, Trash2, Clock } from 'lucide-react';
 
 import PageWrapper from '../components/layout/PageWrapper';
+import AnimatedSearchInput from '../components/ui/AnimatedSearchInput';
 import Modal from '../components/ui/Modal';
 
 /* ── Mock Data ── */
@@ -96,31 +98,22 @@ export default function OperationalNotes() {
       title="Catatan Operasional"
       subtitle="Kelola catatan harian, pengingat, dan informasi penting untuk operasional service."
       actions={
-        <button
+        <ShinyButton
           onClick={() => setIsAddModalOpen(true)}
-          className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-violet-600 rounded-xl text-sm font-medium text-white hover:opacity-90 transition shadow-lg shadow-blue-500/20 cursor-pointer"
+          className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-violet-600 rounded-xl text-sm font-medium text-white hover:opacity-90 transition shadow-lg shadow-blue-500/20 cursor-pointer dark:text-slate-900"
         >
           <Plus size={16} />
           Tambah Catatan
-        </button>
+        </ShinyButton>
       }
     >
       {/* Search & Filter Bar */}
-      <div className="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex flex-col md:flex-row gap-3">
-        <div className="relative flex-1">
-          <Search size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
-          <input
-            type="text"
-            placeholder="Cari catatan berdasarkan judul, isi, atau penulis..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition placeholder:text-slate-400"
-          />
-        </div>
+      <div className="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex flex-col md:flex-row gap-3 dark:bg-slate-900 dark:border-slate-800">
+        <AnimatedSearchInput value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Cari catatan berdasarkan judul, isi, atau penulis..." />
         <select
           value={filterCategory}
           onChange={(e) => setFilterCategory(e.target.value)}
-          className="px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-700 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition cursor-pointer"
+          className="px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-700 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition cursor-pointer dark:bg-slate-800/40 dark:border-slate-800 dark:text-slate-200"
         >
           {categories.map((c) => (
             <option key={c} value={c}>{c === 'Semua' ? 'Semua Kategori' : c}</option>
@@ -139,13 +132,13 @@ export default function OperationalNotes() {
             Umum: 'bg-slate-100 text-slate-600',
           };
           return (
-            <div key={cat} className="bg-white rounded-xl p-4 border border-slate-100 shadow-sm flex items-center gap-3">
+            <div key={cat} className="bg-white rounded-xl p-4 border border-slate-100 shadow-sm flex items-center gap-3 dark:bg-slate-900 dark:border-slate-800">
               <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${colors[cat]}`}>
                 <FileText size={20} />
               </div>
               <div>
-                <p className="text-xs text-slate-500">{cat}</p>
-                <p className="font-bold text-slate-900">{count} catatan</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">{cat}</p>
+                <p className="font-bold text-slate-900 dark:text-white">{count} catatan</p>
               </div>
             </div>
           );
@@ -162,7 +155,7 @@ export default function OperationalNotes() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -16 }}
               transition={{ delay: idx * 0.06 }}
-              className="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 hover:shadow-lg transition-all group"
+              className="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 hover:shadow-lg transition-all group dark:bg-slate-900 dark:border-slate-800"
             >
               <div className="flex flex-col sm:flex-row sm:items-start gap-4">
                 {/* Icon */}
@@ -174,7 +167,7 @@ export default function OperationalNotes() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between gap-3 mb-1.5">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <h4 className="font-bold text-slate-900 text-sm">{note.title}</h4>
+                      <h4 className="font-bold text-slate-900 text-sm dark:text-white">{note.title}</h4>
                       <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${categoryColors[note.category] || categoryColors.Umum}`}>
                         {note.category}
                       </span>
@@ -189,14 +182,14 @@ export default function OperationalNotes() {
                     </div>
                   </div>
 
-                  <p className="text-sm text-slate-600 leading-relaxed mb-3 line-clamp-2">{note.content}</p>
+                  <p className="text-sm text-slate-600 leading-relaxed mb-3 line-clamp-2 dark:text-slate-300">{note.content}</p>
 
                   <div className="flex items-center gap-4 text-xs text-slate-400">
                     <span className="flex items-center gap-1">
                       <Clock size={12} />
                       {formatDate(note.createdAt)}
                     </span>
-                    <span>oleh <span className="font-medium text-slate-500">{note.author}</span></span>
+                    <span>oleh <span className="font-medium text-slate-500 dark:text-slate-400">{note.author}</span></span>
                   </div>
                 </div>
               </div>
@@ -207,9 +200,9 @@ export default function OperationalNotes() {
 
       {/* Empty state */}
       {filteredNotes.length === 0 && (
-        <div className="text-center py-12 bg-white rounded-2xl border border-slate-100">
+        <div className="text-center py-12 bg-white rounded-2xl border border-slate-100 dark:bg-slate-900 dark:border-slate-800">
           <FileText size={48} className="mx-auto text-slate-300 mb-3" />
-          <p className="text-slate-500 font-medium">Tidak ada catatan yang sesuai dengan pencarian Anda.</p>
+          <p className="text-slate-500 font-medium dark:text-slate-400">Tidak ada catatan yang sesuai dengan pencarian Anda.</p>
           <p className="text-sm text-slate-400 mt-1">Coba ubah kata kunci atau filter kategori.</p>
         </div>
       )}
@@ -218,31 +211,31 @@ export default function OperationalNotes() {
       <Modal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} title="Tambah Catatan Baru">
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Judul *</label>
+            <label className="block text-sm font-medium text-slate-700 mb-1.5 dark:text-slate-200">Judul *</label>
             <input
               type="text"
               value={newNote.title}
               onChange={(e) => setNewNote({ ...newNote, title: e.target.value })}
               placeholder="Masukkan judul catatan"
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition"
+              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition dark:bg-slate-800/40 dark:border-slate-800"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Isi Catatan *</label>
+            <label className="block text-sm font-medium text-slate-700 mb-1.5 dark:text-slate-200">Isi Catatan *</label>
             <textarea
               value={newNote.content}
               onChange={(e) => setNewNote({ ...newNote, content: e.target.value })}
               placeholder="Tulis isi catatan di sini..."
               rows={4}
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition resize-none"
+              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition resize-none dark:bg-slate-800/40 dark:border-slate-800"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Kategori</label>
+            <label className="block text-sm font-medium text-slate-700 mb-1.5 dark:text-slate-200">Kategori</label>
             <select
               value={newNote.category}
               onChange={(e) => setNewNote({ ...newNote, category: e.target.value })}
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition cursor-pointer"
+              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition cursor-pointer dark:bg-slate-800/40 dark:border-slate-800"
             >
               {categories.filter((c) => c !== 'Semua').map((c) => (
                 <option key={c} value={c}>{c}</option>
@@ -250,12 +243,12 @@ export default function OperationalNotes() {
             </select>
           </div>
           <div className="flex gap-3 pt-4">
-            <button onClick={() => setIsAddModalOpen(false)} className="flex-1 px-4 py-2.5 bg-slate-100 text-slate-700 rounded-xl font-medium hover:bg-slate-200 transition cursor-pointer">
+            <ShinyButton onClick={() => setIsAddModalOpen(false)} className="flex-1 px-4 py-2.5 bg-slate-100 text-slate-700 rounded-xl font-medium hover:bg-slate-200 transition cursor-pointer dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700">
               Batal
-            </button>
-            <button onClick={handleAddNote} className="flex-1 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-violet-600 text-white rounded-xl font-medium hover:opacity-90 transition shadow-lg shadow-blue-500/20 cursor-pointer">
+            </ShinyButton>
+            <ShinyButton onClick={handleAddNote} className="flex-1 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-violet-600 text-white rounded-xl font-medium hover:opacity-90 transition shadow-lg shadow-blue-500/20 cursor-pointer dark:text-slate-900">
               Simpan Catatan
-            </button>
+            </ShinyButton>
           </div>
         </div>
       </Modal>
@@ -264,29 +257,29 @@ export default function OperationalNotes() {
       <Modal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} title="Edit Catatan">
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Judul *</label>
+            <label className="block text-sm font-medium text-slate-700 mb-1.5 dark:text-slate-200">Judul *</label>
             <input
               type="text"
               value={editNote.title}
               onChange={(e) => setEditNote({ ...editNote, title: e.target.value })}
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition"
+              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition dark:bg-slate-800/40 dark:border-slate-800"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Isi Catatan *</label>
+            <label className="block text-sm font-medium text-slate-700 mb-1.5 dark:text-slate-200">Isi Catatan *</label>
             <textarea
               value={editNote.content}
               onChange={(e) => setEditNote({ ...editNote, content: e.target.value })}
               rows={4}
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition resize-none"
+              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition resize-none dark:bg-slate-800/40 dark:border-slate-800"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Kategori</label>
+            <label className="block text-sm font-medium text-slate-700 mb-1.5 dark:text-slate-200">Kategori</label>
             <select
               value={editNote.category}
               onChange={(e) => setEditNote({ ...editNote, category: e.target.value })}
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition cursor-pointer"
+              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition cursor-pointer dark:bg-slate-800/40 dark:border-slate-800"
             >
               {categories.filter((c) => c !== 'Semua').map((c) => (
                 <option key={c} value={c}>{c}</option>
@@ -294,12 +287,12 @@ export default function OperationalNotes() {
             </select>
           </div>
           <div className="flex gap-3 pt-4">
-            <button onClick={() => setIsEditModalOpen(false)} className="flex-1 px-4 py-2.5 bg-slate-100 text-slate-700 rounded-xl font-medium hover:bg-slate-200 transition cursor-pointer">
+            <ShinyButton onClick={() => setIsEditModalOpen(false)} className="flex-1 px-4 py-2.5 bg-slate-100 text-slate-700 rounded-xl font-medium hover:bg-slate-200 transition cursor-pointer dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700">
               Batal
-            </button>
-            <button onClick={handleEditNote} className="flex-1 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-violet-600 text-white rounded-xl font-medium hover:opacity-90 transition shadow-lg shadow-blue-500/20 cursor-pointer">
+            </ShinyButton>
+            <ShinyButton onClick={handleEditNote} className="flex-1 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-violet-600 text-white rounded-xl font-medium hover:opacity-90 transition shadow-lg shadow-blue-500/20 cursor-pointer dark:text-slate-900">
               Simpan Perubahan
-            </button>
+            </ShinyButton>
           </div>
         </div>
       </Modal>
@@ -319,12 +312,12 @@ export default function OperationalNotes() {
             </div>
           </div>
           <div className="flex gap-3 pt-2">
-            <button onClick={() => setIsDeleteModalOpen(false)} className="flex-1 px-4 py-2.5 bg-slate-100 text-slate-700 rounded-xl font-medium hover:bg-slate-200 transition cursor-pointer">
+            <ShinyButton onClick={() => setIsDeleteModalOpen(false)} className="flex-1 px-4 py-2.5 bg-slate-100 text-slate-700 rounded-xl font-medium hover:bg-slate-200 transition cursor-pointer dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700">
               Batal
-            </button>
-            <button onClick={handleDeleteNote} className="flex-1 px-4 py-2.5 bg-rose-600 text-white rounded-xl font-medium hover:bg-rose-700 transition shadow-lg shadow-rose-500/20 cursor-pointer">
+            </ShinyButton>
+            <ShinyButton onClick={handleDeleteNote} className="flex-1 px-4 py-2.5 bg-rose-600 text-white rounded-xl font-medium hover:bg-rose-700 transition shadow-lg shadow-rose-500/20 cursor-pointer dark:text-slate-900">
               Hapus Catatan
-            </button>
+            </ShinyButton>
           </div>
         </div>
       </Modal>

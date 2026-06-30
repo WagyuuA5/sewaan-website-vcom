@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSettingsStore } from '../../store/useSettingsStore';
 import {
   LayoutDashboard, Wrench, History, Users, Smartphone, Package,
   UserCog, FileText, BookOpen, X, ChevronRight, Laptop, Calendar,
-  FileText as FileIcon, MonitorSmartphone
+  FileText as FileIcon
 } from 'lucide-react';
 
 const navItems = [
@@ -43,6 +44,7 @@ const navItems = [
 export default function Sidebar({ isOpen, onClose }) {
   const location = useLocation();
   const navigate = useNavigate();
+  const { branding } = useSettingsStore();
   const [expandedMenus, setExpandedMenus] = useState({ 'Penyewaan': true, 'Service': true });
 
   const handleNav = (path) => {
@@ -64,7 +66,7 @@ export default function Sidebar({ isOpen, onClose }) {
           <div key={item.label} className="w-full">
             <button
               id={`nav-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
-              onClick={(e) => {
+              onClick={() => {
                 if (item.subItems && !expandedMenus[item.label]) {
                   setExpandedMenus(prev => ({ ...prev, [item.label]: true }));
                 }
@@ -74,7 +76,7 @@ export default function Sidebar({ isOpen, onClose }) {
                 isActive && !item.subItems
                   ? 'bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-lg nav-active-glow'
                   : 'text-slate-400 hover:bg-white/5 hover:text-white'
-              }`}
+              } `}
             >
               <item.icon size={20} className={isActive && !item.subItems ? 'text-white' : ''} />
               <span className={isActive && !item.subItems ? 'text-white' : ''}>{item.label}</span>
@@ -108,7 +110,7 @@ export default function Sidebar({ isOpen, onClose }) {
                               isSubActive
                                 ? 'bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-sm'
                                 : 'text-slate-400 hover:bg-white/5 hover:text-white'
-                            }`}
+                            } `}
                           >
                             <sub.icon size={18} />
                             {sub.label}
@@ -129,11 +131,18 @@ export default function Sidebar({ isOpen, onClose }) {
   /* Branding block */
   const brand = (
     <div className="p-6 flex items-center gap-3">
-      <div className="h-12 flex items-center justify-center flex-shrink-0 bg-white rounded-xl p-1 shadow-lg">
-        <img src="/v-com.png" alt="V-COM Logo" className="h-full object-contain" />
-      </div>
+      <motion.div 
+        whileHover={{ scale: 1.05, rotate: [0, -5, 5, 0] }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
+        className="h-12 w-12 flex items-center justify-center flex-shrink-0 bg-white rounded-xl p-1.5 shadow-[0_0_15px_rgba(59,130,246,0.5)] border border-blue-500/30 overflow-hidden relative group cursor-pointer"
+      >
+        <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-violet-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <img src={branding.logo} alt="Logo" className="h-full w-full object-contain relative z-10" />
+      </motion.div>
       <div className="min-w-0">
-        <h1 className="font-bold text-lg tracking-tight text-white truncate">V-COM</h1>
+        <h1 className="font-bold text-lg tracking-tight text-white truncate " title={branding.companyName}>
+          {branding.companyName}
+        </h1>
         <p className="text-[11px] text-slate-400 leading-tight">Admin Dashboard</p>
       </div>
     </div>
@@ -142,7 +151,7 @@ export default function Sidebar({ isOpen, onClose }) {
   return (
     <>
       {/* ── Desktop sidebar (always visible at lg+) ── */}
-      <aside className="hidden lg:flex w-[272px] bg-[#0f172a] text-white flex-col flex-shrink-0 border-r border-white/5">
+      <aside className="hidden lg:flex w-[272px] bg-[#0f172a] text-white flex-col flex-shrink-0 border-r border-white/5 ">
         {brand}
         {renderNav()}
       </aside>
@@ -166,13 +175,13 @@ export default function Sidebar({ isOpen, onClose }) {
               animate={{ x: 0 }}
               exit={{ x: -320 }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed inset-y-0 left-0 z-50 w-80 bg-[#0f172a] text-white flex flex-col shadow-2xl lg:hidden"
+              className="fixed inset-y-0 left-0 z-50 w-80 bg-[#0f172a] text-white flex flex-col shadow-2xl lg:hidden "
             >
               <div className="flex items-center justify-between pr-4">
                 {brand}
                 <button
                   onClick={onClose}
-                  className="text-slate-400 hover:text-white transition p-2 rounded-lg hover:bg-white/5 cursor-pointer"
+                  className="text-slate-400 hover:text-white transition p-2 rounded-lg hover:bg-white/5 cursor-pointer "
                 >
                   <X size={20} />
                 </button>

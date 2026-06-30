@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { ShinyButton } from '../components/ui/shiny-button';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, DollarSign, TrendingUp, TrendingDown, Edit3, Trash2, Download } from 'lucide-react';
 import PageWrapper from '../components/layout/PageWrapper';
@@ -94,24 +95,24 @@ export default function Bookkeeping() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
-          <h1 className="text-2xl font-bold text-slate-900">Pembukuan Harian</h1>
-          <p className="text-slate-500 text-sm mt-1">Kelola pemasukan dan pengeluaran harian bengkel Anda</p>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Pembukuan Harian</h1>
+          <p className="text-slate-500 text-sm mt-1 dark:text-slate-400">Kelola pemasukan dan pengeluaran harian bengkel Anda</p>
         </motion.div>
         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} className="flex gap-3">
           <button
             onClick={() => {}}
-            className="flex items-center gap-2 px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-medium text-slate-700 hover:bg-slate-50 transition shadow-sm cursor-pointer"
+            className="flex items-center gap-2 px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-medium text-slate-700 hover:bg-slate-50 transition shadow-sm cursor-pointer dark:bg-slate-900 dark:border-slate-800 dark:text-slate-200 dark:hover:bg-slate-950"
           >
             <Download size={16} />
             Ekspor
           </button>
-          <button
+          <ShinyButton
             onClick={openAddModal}
-            className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-violet-600 text-white rounded-xl text-sm font-medium transition shadow-lg shadow-blue-500/20 cursor-pointer"
+            className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-violet-600 text-white rounded-xl text-sm font-medium transition shadow-lg shadow-blue-500/20 cursor-pointer dark:text-slate-900"
           >
             <Plus size={16} />
             Tambah Entri
-          </button>
+          </ShinyButton>
         </motion.div>
       </div>
 
@@ -125,10 +126,10 @@ export default function Bookkeeping() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="bg-white rounded-xl p-5 border border-slate-100 shadow-sm"
+              className="bg-white rounded-xl p-5 border border-slate-100 shadow-sm dark:bg-slate-900 dark:border-slate-800"
             >
               <div className="flex items-center justify-between mb-3">
-                <span className="text-slate-500 text-sm font-medium">{card.label}</span>
+                <span className="text-slate-500 text-sm font-medium dark:text-slate-400">{card.label}</span>
                 <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${colors.icon}`}>
                   <card.icon size={20} />
                 </div>
@@ -144,22 +145,22 @@ export default function Bookkeeping() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.3 }}
-        className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden"
+        className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden dark:bg-slate-900 dark:border-slate-800"
       >
-        <div className="p-5 border-b border-slate-100">
-          <h2 className="text-lg font-semibold text-slate-900">Riwayat Pembukuan</h2>
-          <p className="text-slate-500 text-sm mt-0.5">Daftar transaksi harian bengkel</p>
+        <div className="p-5 border-b border-slate-100 dark:border-slate-800">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Riwayat Pembukuan</h2>
+          <p className="text-slate-500 text-sm mt-0.5 dark:text-slate-400">Daftar transaksi harian bengkel</p>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
-            <thead className="bg-slate-50/80 border-b border-slate-100">
+            <thead className="bg-slate-50/80 border-b border-slate-100 dark:border-slate-800">
               <tr>
-                <th className="text-left text-slate-600 font-semibold px-6 py-3.5">Tanggal</th>
-                <th className="text-right text-slate-600 font-semibold px-6 py-3.5">Pemasukan</th>
-                <th className="text-right text-slate-600 font-semibold px-6 py-3.5">Pengeluaran</th>
-                <th className="text-right text-slate-600 font-semibold px-6 py-3.5">Laba</th>
-                <th className="text-left text-slate-600 font-semibold px-6 py-3.5">Deskripsi</th>
-                <th className="text-center text-slate-600 font-semibold px-6 py-3.5">Aksi</th>
+                <th className="text-left text-slate-600 font-semibold px-6 py-3.5 dark:text-slate-300">Tanggal</th>
+                <th className="text-right text-slate-600 font-semibold px-6 py-3.5 dark:text-slate-300">Pemasukan</th>
+                <th className="text-right text-slate-600 font-semibold px-6 py-3.5 dark:text-slate-300">Pengeluaran</th>
+                <th className="text-right text-slate-600 font-semibold px-6 py-3.5 dark:text-slate-300">Laba</th>
+                <th className="text-left text-slate-600 font-semibold px-6 py-3.5 dark:text-slate-300">Deskripsi</th>
+                <th className="text-center text-slate-600 font-semibold px-6 py-3.5 dark:text-slate-300">Aksi</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -175,7 +176,7 @@ export default function Bookkeeping() {
                       transition={{ duration: 0.3, delay: index * 0.05 }}
                       className="hover:bg-slate-50/50 transition cursor-pointer"
                     >
-                      <td className="px-6 py-4 text-slate-700 whitespace-nowrap">{formatDate(entry.date)}</td>
+                      <td className="px-6 py-4 text-slate-700 whitespace-nowrap dark:text-slate-200">{formatDate(entry.date)}</td>
                       <td className="px-6 py-4 text-right text-emerald-600 font-medium whitespace-nowrap">
                         {formatCurrency(entry.income)}
                       </td>
@@ -185,7 +186,7 @@ export default function Bookkeeping() {
                       <td className={`px-6 py-4 text-right font-semibold whitespace-nowrap ${profit >= 0 ? 'text-blue-600' : 'text-rose-600'}`}>
                         {formatCurrency(profit)}
                       </td>
-                      <td className="px-6 py-4 text-slate-500 max-w-[250px] truncate">{entry.description}</td>
+                      <td className="px-6 py-4 text-slate-500 max-w-[250px] truncate dark:text-slate-400">{entry.description}</td>
                       <td className="px-6 py-4">
                         <div className="flex items-center justify-center gap-1">
                           <button
@@ -212,7 +213,7 @@ export default function Bookkeeping() {
           </table>
 
           {entries.length === 0 && (
-            <div className="flex flex-col items-center justify-center py-16 text-slate-500">
+            <div className="flex flex-col items-center justify-center py-16 text-slate-500 dark:text-slate-400">
               <DollarSign size={40} className="mb-3 opacity-40" />
               <p className="text-sm">Belum ada data pembukuan</p>
             </div>
@@ -224,18 +225,18 @@ export default function Bookkeeping() {
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title={editingEntry ? 'Edit Entri Pembukuan' : 'Tambah Entri Baru'}>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Tanggal</label>
+            <label className="block text-sm font-medium text-slate-700 mb-1.5 dark:text-slate-200">Tanggal</label>
             <input
               type="date"
               value={form.date}
               onChange={(e) => handleChange('date', e.target.value)}
               required
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition"
+              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition dark:bg-slate-800/40 dark:border-slate-800 dark:text-white"
             />
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">Pemasukan (Rp)</label>
+              <label className="block text-sm font-medium text-slate-700 mb-1.5 dark:text-slate-200">Pemasukan (Rp)</label>
               <input
                 type="number"
                 value={form.income}
@@ -243,11 +244,16 @@ export default function Bookkeeping() {
                 required
                 min="0"
                 placeholder="0"
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition"
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition dark:bg-slate-800/40 dark:border-slate-800 dark:text-white"
               />
+              {form.income > 0 && (
+                <div className="mt-2 inline-block px-3 py-1 bg-blue-50 text-blue-600 rounded-lg text-sm font-semibold tracking-wide animate-in fade-in zoom-in duration-200">
+                  Rp {Number(form.income).toLocaleString('id-ID')}
+                </div>
+              )}
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">Pengeluaran (Rp)</label>
+              <label className="block text-sm font-medium text-slate-700 mb-1.5 dark:text-slate-200">Pengeluaran (Rp)</label>
               <input
                 type="number"
                 value={form.expense}
@@ -255,35 +261,40 @@ export default function Bookkeeping() {
                 required
                 min="0"
                 placeholder="0"
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500/20 focus:border-rose-500 transition"
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500/20 focus:border-rose-500 transition dark:bg-slate-800/40 dark:border-slate-800 dark:text-white"
               />
+              {form.expense > 0 && (
+                <div className="mt-2 inline-block px-3 py-1 bg-blue-50 text-blue-600 rounded-lg text-sm font-semibold tracking-wide animate-in fade-in zoom-in duration-200">
+                  Rp {Number(form.expense).toLocaleString('id-ID')}
+                </div>
+              )}
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">Deskripsi</label>
+            <label className="block text-sm font-medium text-slate-700 mb-1.5 dark:text-slate-200">Deskripsi</label>
             <textarea
               value={form.description}
               onChange={(e) => handleChange('description', e.target.value)}
               required
               rows={3}
               placeholder="Contoh: Service harian & pembelian sparepart"
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition resize-none"
+              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition resize-none dark:bg-slate-800/40 dark:border-slate-800 dark:text-white"
             />
           </div>
           <div className="flex gap-3 pt-2">
-            <button
+            <ShinyButton
               type="button"
               onClick={() => setIsModalOpen(false)}
-              className="flex-1 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-sm font-medium transition cursor-pointer"
+              className="flex-1 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-sm font-medium transition cursor-pointer dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-200"
             >
               Batal
-            </button>
-            <button
+            </ShinyButton>
+            <ShinyButton
               type="submit"
-              className="flex-1 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-violet-600 text-white rounded-xl text-sm font-medium transition shadow-lg shadow-blue-500/20 cursor-pointer"
+              className="flex-1 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-violet-600 text-white rounded-xl text-sm font-medium transition shadow-lg shadow-blue-500/20 cursor-pointer dark:text-slate-900"
             >
               {editingEntry ? 'Simpan Perubahan' : 'Tambah Entri'}
-            </button>
+            </ShinyButton>
           </div>
         </form>
       </Modal>

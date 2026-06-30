@@ -33,16 +33,16 @@ export default function DataTable({ columns, data, pageSize = 10 }) {
   }, [page, totalPages]);
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+    <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden dark:bg-slate-900 dark:border-slate-800">
       {/* Table */}
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
-          <thead className="bg-slate-50/80 border-b border-slate-100">
+          <thead className="bg-slate-50/80 border-b border-slate-100 dark:border-slate-800">
             <tr>
               {columns.map((col) => (
                 <th
                   key={col.key}
-                  className={`text-left px-5 py-3.5 font-semibold text-slate-600 whitespace-nowrap ${col.className || ''}`}
+                  className={`text-left px-5 py-3.5 font-semibold text-slate-600 whitespace-nowrap ${col.className || ''} dark:text-slate-300`}
                 >
                   {col.label}
                 </th>
@@ -73,7 +73,7 @@ export default function DataTable({ columns, data, pageSize = 10 }) {
 
       {/* Pagination */}
       {data.length > pageSize && (
-        <div className="px-5 py-3.5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-slate-500">
+        <div className="px-5 py-3.5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-slate-500 dark:border-slate-800 dark:text-slate-400">
           <span>
             Showing {startIdx + 1} to {Math.min(startIdx + pageSize, data.length)} of {data.length} entries
           </span>
@@ -81,7 +81,7 @@ export default function DataTable({ columns, data, pageSize = 10 }) {
             <button
               onClick={() => goTo(page - 1)}
               disabled={page === 1}
-              className="p-1.5 rounded-lg hover:bg-slate-100 transition disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+              className="p-1.5 rounded-lg hover:bg-slate-100 transition disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer dark:hover:bg-slate-800"
             >
               <ChevronLeft size={18} />
             </button>
@@ -94,7 +94,7 @@ export default function DataTable({ columns, data, pageSize = 10 }) {
                   n === page
                     ? 'bg-blue-600 text-white shadow-sm'
                     : 'hover:bg-slate-100 text-slate-600'
-                }`}
+                } dark:text-slate-900 dark:'hover:bg-slate-800`}
               >
                 {n}
               </button>
@@ -103,7 +103,7 @@ export default function DataTable({ columns, data, pageSize = 10 }) {
             <button
               onClick={() => goTo(page + 1)}
               disabled={page === totalPages}
-              className="p-1.5 rounded-lg hover:bg-slate-100 transition disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+              className="p-1.5 rounded-lg hover:bg-slate-100 transition disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer dark:hover:bg-slate-800"
             >
               <ChevronRight size={18} />
             </button>
